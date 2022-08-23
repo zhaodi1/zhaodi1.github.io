@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+    <meta name="description" content="汇编语言是机器指令（二进制）的符号形式。计算机通过输入机器指令来控制处理器来完成运算和数据处理工作，处理器会提供一些基本的机器指令来让外部操控其运行，不同的处理器架构指令集可能不同。程序员使用汇编语言编写程序，然后通过编译程序，将汇编语言转换成机器语言交给计算机执行。汇编语言是将词组与机器指令进行映射，不同架构的处理器机器指令集可能不同，这也导致了汇编语言是与处理器相关的。 寄存器寄存器是处理器用">
+<meta property="og:type" content="article">
+<meta property="og:title" content="汇编语言">
+<meta property="og:url" content="https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/index.html">
+<meta property="og:site_name" content="赵迪的博客">
+<meta property="og:description" content="汇编语言是机器指令（二进制）的符号形式。计算机通过输入机器指令来控制处理器来完成运算和数据处理工作，处理器会提供一些基本的机器指令来让外部操控其运行，不同的处理器架构指令集可能不同。程序员使用汇编语言编写程序，然后通过编译程序，将汇编语言转换成机器语言交给计算机执行。汇编语言是将词组与机器指令进行映射，不同架构的处理器机器指令集可能不同，这也导致了汇编语言是与处理器相关的。 寄存器寄存器是处理器用">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://lifesinger.oss-cn-beijing.aliyuncs.com/blog/20220105111117.png">
+<meta property="og:image" content="https://lifesinger.oss-cn-beijing.aliyuncs.com/blog/20220110114858.png">
+<meta property="article:published_time" content="2022-08-23T01:22:49.000Z">
+<meta property="article:modified_time" content="2022-08-23T01:29:01.302Z">
+<meta property="article:author" content="Di Zhao">
+<meta property="article:tag" content="技术">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://lifesinger.oss-cn-beijing.aliyuncs.com/blog/20220105111117.png">
+    
+    
+      
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
+    
+    <!-- title -->
+    <title>汇编语言</title>
+    <!-- styles -->
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zhaodi1">Projects</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&text=汇编语言"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&is_video=false&description=汇编语言"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=汇编语言&body=Check out this article: https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&name=汇编语言&description="><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&t=汇编语言"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-number">2.1.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-number">2.2.</span> <span class="toc-text">堆</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">基础指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MOV%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">MOV类指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="toc-number">3.2.</span> <span class="toc-text">栈操作指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4"><span class="toc-number">3.3.</span> <span class="toc-text">运算指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E4%B8%8E%E8%BF%94%E5%9B%9E%E6%8C%87%E4%BB%A4"><span class="toc-number">3.4.</span> <span class="toc-text">调用与返回指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%80%BB%E7%BB%93"><span class="toc-number">3.5.</span> <span class="toc-text">指令总结</span></a></li></ol></li></ol>
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        汇编语言
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Di Zhao</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2022-08-23T01:22:49.000Z" itemprop="datePublished">2022-08-23</time>
+        
+      
+    </div>
+
+
+      
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/%E6%8A%80%E6%9C%AF/" rel="tag">技术</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>汇编语言是机器指令（二进制）的符号形式。计算机通过输入机器指令来控制处理器来完成运算和数据处理工作，处理器会提供一些基本的机器指令来让外部操控其运行，不同的处理器架构指令集可能不同。<br>程序员使用汇编语言编写程序，然后通过编译程序，将汇编语言转换成机器语言交给计算机执行。汇编语言是将词组与机器指令进行映射，不同架构的处理器机器指令集可能不同，这也导致了汇编语言是与处理器相关的。</p>
+<h2 id="寄存器"><a href="#寄存器" class="headerlink" title="寄存器"></a>寄存器</h2><p>寄存器是处理器用来暂存指令、数据和地址的硬件，属于计算机存储体系的最顶端，靠近处理器且速度快。<br>与主存通过地址寻址不同，寄存器位置是通过别名来定位的，不同类型寄存器用途也不同，X86-64的寄存器的命名和用途如下:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	%rax      返回值</span><br><span class="line">	%rsp      栈指针，指向栈顶</span><br><span class="line">	%rdi      函数第一个参数</span><br><span class="line">	%rsi      函数第二个参数</span><br><span class="line">	%rdx      函数第三个参数</span><br><span class="line">	%rcx      函数第四个参数</span><br><span class="line">	%r8       函数第五个参数</span><br><span class="line">	%r9       函数第六个参数</span><br><span class="line">	%r10/%r11 任何数据存储，被调用者使用</span><br><span class="line">	%rbx/%rbp/%r12/%r13/%14/%15      任何数据存储，被调用者使用</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>寄存器大小与处理器的位数相同，32位处理器寄存器容量为4字节。 对于X86系列处理器，32位的X86的寄存器为4字节，X86-64的寄存器大小为8字节。<br>X86和X86-64的位数不同，别名也有些不同，但X86-64会向下兼容X86和更低位架构的。比如，X86-64寄存器<code>%rdi</code>对应的32位X86别名为<code>%edi</code>，当程序在X86-64处理器上使用<code>%edi</code>时，地址会指向<code>%rdi</code>的低32位，也就是在数据只会填充<code>%rdi</code>的低32位空间，其它寄存器映射关系如下<br><img src="https://lifesinger.oss-cn-beijing.aliyuncs.com/blog/20220105111117.png"></p>
+<h2 id="内存模型"><a href="#内存模型" class="headerlink" title="内存模型"></a>内存模型</h2><p>寄存器数量有限只能存储少量数据，大部分数据还是在内存中。内存中存储的数据可以分为两类，一类是临时的局部数据，另一类是全局变量和动态的结构数据。根据存储数据的种类不同，管理方式也不同，内存逻辑划分为堆和栈两部分<br><img src="https://lifesinger.oss-cn-beijing.aliyuncs.com/blog/20220110114858.png"><br>堆从低地址到高地址进行增长，栈从高地址向低地址增长，通过这种方式达到空间的高效利用。</p>
+<h3 id="栈"><a href="#栈" class="headerlink" title="栈"></a>栈</h3><p>栈是用来暂存运行时局部数据的内存区域，方法运行时会在栈顶创建一块空间，这块区域被称为栈帧，用于存储方法执行时的上下文（入参、返回值和局部变量等）。<br>局部变量的生命周期与方法生命周期相同，当方法运行结束的时候该区域数据就可以释放，这也是局部变量适合使用栈数据结构的原因。<br>栈的存在还是因为寄存器数量有限，通过分析栈的使用场景可以更好的理解栈的作用：</p>
+<ol>
+<li>入参超过寄存器个数：由于寄存器个数有限，当某个的入参个数超过寄存器个数，超过的部分就需要放到内存中；</li>
+<li>局部变量超过寄存器个数：除了入参，方法内部的局部变量个数也可能会超过寄存器个数，这部分数据也需要放入内存中；</li>
+<li>寄存器被占用：寄存器是被共用的，当方法A将寄存器占用了，在结束时需要将寄存器中的内容恢复，寄存器原始数据也需要放到内存中。</li>
+</ol>
+<h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>过程局部变量可以在栈上进行存储，常量、全局变量和动态的结构数据这些生命周期不确定，而且是在运行时动态的新增和删除的数据，使用堆数据结构来存储。<br>C语言通过<code>malloc()</code>函数在堆上分配空间，然后返回指向它的指针，通过<code>free()</code>函数进行释放。</p>
+<h2 id="基础指令"><a href="#基础指令" class="headerlink" title="基础指令"></a>基础指令</h2><p>为了方便理解汇编语言，可以借用汇编语言的思想，使用更方便理解C语言编译成汇编语言进行分析</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">int add(int a, int b) &#123;</span><br><span class="line">    int r = a + b;</span><br><span class="line">    return r;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main(int argc, char const *argv[])</span><br><span class="line">&#123;</span><br><span class="line">    int a = 10;</span><br><span class="line">    int b = 20;</span><br><span class="line">    int r = add(a, b);</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这段代码包含了赋值、过程调用、运算和返回基本操作，使用<code>gcc -S filename.c</code>即可编译成<code>filename.s</code>的汇编文件，汇编代码如下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">_add:</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	movl	%edi, -4(%rbp)</span><br><span class="line">	movl	%esi, -8(%rbp)</span><br><span class="line">	movl	-4(%rbp), %eax</span><br><span class="line">	addl	-8(%rbp), %eax</span><br><span class="line">	movl	%eax, -12(%rbp)</span><br><span class="line">	movl	-12(%rbp), %eax</span><br><span class="line">	popq	%rbp</span><br><span class="line">	retq</span><br><span class="line"></span><br><span class="line">_main:</span><br><span class="line">	pushq	%rbp</span><br><span class="line">	movq	%rsp, %rbp</span><br><span class="line">	subq	$32, %rsp</span><br><span class="line">	movl	$0, -4(%rbp)</span><br><span class="line">	movl	%edi, -8(%rbp)</span><br><span class="line">	movq	%rsi, -16(%rbp)</span><br><span class="line">	movl	$10, -20(%rbp)</span><br><span class="line">	movl	$20, -24(%rbp)</span><br><span class="line">	movl	-20(%rbp), %edi</span><br><span class="line">	movl	-24(%rbp), %esi</span><br><span class="line">	callq	_add</span><br><span class="line">	movl	%eax, %ecx</span><br><span class="line">	xorl	%eax, %eax</span><br><span class="line">	movl	%ecx, -28(%rbp)</span><br><span class="line">	addq	$32, %rsp</span><br><span class="line">	popq	%rbp</span><br><span class="line">	retq</span><br></pre></td></tr></table></figure>
+<p>汇编语言非常结构化，每一行代表CPU执行一个操作，每行可以分为两部分，左半部分为指令，右半部分为操作数。</p>
+<h3 id="MOV类指令"><a href="#MOV类指令" class="headerlink" title="MOV类指令"></a>MOV类指令</h3><p>MOV类指令是将数据从一个位置复制到另一个位置的指令，由movb&#x2F;movw&#x2F;movl&#x2F;movq四个指令构成，主要区别是写入数据大小不同</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	movb     传输1字节</span><br><span class="line">    movw     传输2字节</span><br><span class="line">    movl     传输4字节</span><br><span class="line">    movq     传输8字节</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MOV类指令格式为<code>mov 源操作数, 目标操作数</code>，源操作数可以是立即数、寄存器和内存地址，目标操作数可以为寄存器和内存地址</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	movl	%edi, -8(%rbp)  # 将寄存器%edi的值写入内存</span><br><span class="line">    movl	$10, -20(%rbp)  # 将立即数10赋值写入内存</span><br><span class="line">	movl	-20(%rbp), %edi # 内存值写入到%edi寄存器</span><br><span class="line">	# -8(%rbp)代表(%rbp值-8)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="栈操作指令"><a href="#栈操作指令" class="headerlink" title="栈操作指令"></a>栈操作指令</h3><p>栈指令有压栈指令<code>push</code>和出栈指令<code>pop</code>两条指令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	pushq source  # 将四字压入栈</span><br><span class="line">	popq  target  # 将四字出栈</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在X86-64中，栈向低地址方向增长，栈顶指针地址在<code>%rsp</code>寄存器中，所以压栈是减小<code>%rsp</code>的值，然后将数据放到内存中；出栈是先读内存中的值，然后增加<code>%rsp</code>的值。所以，将四字值压入栈中，需要先将栈指针减8，然后将值写到新的栈顶地址，因此<code>pushq %rbp</code>等价于两条指令<br>    subp $8, %rsp     # 栈指针-8<br>    movq %rbp, (%rsp) # 将值写入栈顶地址<br>对于其它长度字节的写入，可以通过这两条命令来实现压栈操作。</p>
+<h3 id="运算指令"><a href="#运算指令" class="headerlink" title="运算指令"></a>运算指令</h3><p>除了加减乘操作外，X86还支持异或与操作</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">	ADD  S, D   # D = S + D</span><br><span class="line">	SUB  S, D   # D = D - S</span><br><span class="line">	IMUL S, D   # D = S * D</span><br><span class="line">	XOR  S, D   # D = D ^ S 异或</span><br><span class="line">	OR   S, D   # D = D | S 或</span><br><span class="line">	AND  S, D   # D = D &amp; S 与</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运算操作X86采用的两个操作数的形式，有的指令集采用的是三个操作数的形式，比如<code>ADD A, B, C</code>代表的是<code>C = A + B</code>。</p>
+<h3 id="调用与返回指令"><a href="#调用与返回指令" class="headerlink" title="调用与返回指令"></a>调用与返回指令</h3><p><code>call</code>指令用来调用函数，比如<code>call _add</code>代表调用<code>_add</code>函数并将函数运行结束后跳转的地址入栈，接下来将会执行该部分代码。<code>ret</code>指令会终止当前函数，并恢复当调用方地址。<br>通过汇编代码可以理解栈和栈帧的具体实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">_add:</span><br><span class="line">	pushq	%rbp                  # 将寄存器rbp的值压栈</span><br><span class="line">	movq	%rsp, %rbp            # 将栈顶指针地址赋值给rbp寄存器</span><br><span class="line">	movl	%edi, -4(%rbp)        # 将寄存器edi的值入栈，当前值为10</span><br><span class="line">	movl	%esi, -8(%rbp)        # 将寄存器edi的值入栈，当前值为20</span><br><span class="line">	movl	-4(%rbp), %eax        # 将10赋值给寄存器eax，寄存器eax的作用是存储返回值</span><br><span class="line">	addl	-8(%rbp), %eax        # 将20与寄存器eax的值相加，也就是10 + 20</span><br><span class="line">	movl	%eax, -12(%rbp)       # 将结果放入栈中</span><br><span class="line">	movl	-12(%rbp), %eax       # 将栈中结果赋值给eax</span><br><span class="line">	popq	%rbp                  # 恢复rbp的值</span><br><span class="line">	retq                          # 结束当前函数</span><br><span class="line"></span><br><span class="line">_main:                            # main函数</span><br><span class="line">	pushq	%rbp                  # 将寄存器rbp的值压栈</span><br><span class="line">	movq	%rsp, %rbp            # 将栈顶指针地址赋值给rbp寄存器</span><br><span class="line">	subq	$32, %rsp             # 栈顶指针地址-32字节，相当于栈增长</span><br><span class="line">	movl	$0, -4(%rbp)          # 将绝对数0入栈</span><br><span class="line">	movl	%edi, -8(%rbp)        # 将寄存器edi的值入栈</span><br><span class="line">	movq	%rsi, -16(%rbp)       # 将寄存器rsi的值入栈</span><br><span class="line">	movl	$10, -20(%rbp)        # 将绝对数10入栈</span><br><span class="line">	movl	$20, -24(%rbp)        # 将绝对数20入栈</span><br><span class="line">	movl	-20(%rbp), %edi       # 将10赋值给寄存器edi</span><br><span class="line">	movl	-24(%rbp), %esi       # 将20赋值给寄存器esi</span><br><span class="line">	callq	_add                  # 调用add函数</span><br><span class="line">	movl	%eax, %ecx            # 将寄存器eax值赋值给寄存器ecx，寄存器eax存储的是运算结果</span><br><span class="line">	xorl	%eax, %eax            # eax = eax ^ eax</span><br><span class="line">	movl	%ecx, -28(%rbp)       # 运算结果入栈</span><br><span class="line">	addq	$32, %rsp             # 栈顶指针地址+32字节，相当于栈恢复</span><br><span class="line">	popq	%rbp                  # 恢复rbp值</span><br><span class="line">	retq                          # 结束当前函数</span><br></pre></td></tr></table></figure>
+<p>在main函数中通过将栈指针地址减去32<code>subq	$32, %rsp </code>进行栈帧的分配，在程序的末尾有将栈顶指针地址加上32<code>addq	$32, %rsp </code>代表栈帧的释放，所以栈帧只是一个逻辑概念。</p>
+<h3 id="指令总结"><a href="#指令总结" class="headerlink" title="指令总结"></a>指令总结</h3><p>对汇编文件进行下翻译:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">_add:</span><br><span class="line">	pushq	%rbp                  # 将寄存器rbp的值压栈</span><br><span class="line">	movq	%rsp, %rbp            # 将栈顶指针地址赋值给rbp寄存器</span><br><span class="line">	movl	%edi, -4(%rbp)        # 将寄存器edi的值入栈，当前值为10</span><br><span class="line">	movl	%esi, -8(%rbp)        # 将寄存器edi的值入栈，当前值为20</span><br><span class="line">	movl	-4(%rbp), %eax        # 将10赋值给寄存器eax，寄存器eax的作用是存储返回值</span><br><span class="line">	addl	-8(%rbp), %eax        # 将20与寄存器eax的值相加，也就是10 + 20</span><br><span class="line">	movl	%eax, -12(%rbp)       # 将结果放入栈中</span><br><span class="line">	movl	-12(%rbp), %eax       # 将栈中结果赋值给eax</span><br><span class="line">	popq	%rbp                  # 恢复rbp的值</span><br><span class="line">	retq                          # 结束当前函数</span><br><span class="line"></span><br><span class="line">_main:                            # main函数</span><br><span class="line">	pushq	%rbp                  # 将寄存器rbp的值压栈</span><br><span class="line">	movq	%rsp, %rbp            # 将栈顶指针地址赋值给rbp寄存器</span><br><span class="line">	subq	$32, %rsp             # 栈顶指针地址-32字节，相当于栈增长</span><br><span class="line">	movl	$0, -4(%rbp)          # 将绝对数0入栈</span><br><span class="line">	movl	%edi, -8(%rbp)        # 将寄存器edi的值入栈</span><br><span class="line">	movq	%rsi, -16(%rbp)       # 将寄存器rsi的值入栈</span><br><span class="line">	movl	$10, -20(%rbp)        # 将绝对数10入栈</span><br><span class="line">	movl	$20, -24(%rbp)        # 将绝对数20入栈</span><br><span class="line">	movl	-20(%rbp), %edi       # 将10赋值给寄存器edi</span><br><span class="line">	movl	-24(%rbp), %esi       # 将20赋值给寄存器esi</span><br><span class="line">	callq	_add                  # 调用add函数</span><br><span class="line">	movl	%eax, %ecx            # 将寄存器eax值赋值给寄存器ecx，寄存器eax存储的是运算结果</span><br><span class="line">	xorl	%eax, %eax            # eax = eax ^ eax</span><br><span class="line">	movl	%ecx, -28(%rbp)       # 运算结果入栈</span><br><span class="line">	addq	$32, %rsp             # 栈顶指针地址+32字节，相当于栈恢复</span><br><span class="line">	popq	%rbp                  # 恢复rbp值</span><br><span class="line">	retq                          # 结束当前函数</span><br></pre></td></tr></table></figure>
+  </div>
+</article>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a target="_blank" rel="noopener" href="http://github.com/zhaodi1">Projects</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-number">1.</span> <span class="toc-text">寄存器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-number">2.</span> <span class="toc-text">内存模型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88"><span class="toc-number">2.1.</span> <span class="toc-text">栈</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86"><span class="toc-number">2.2.</span> <span class="toc-text">堆</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E7%A1%80%E6%8C%87%E4%BB%A4"><span class="toc-number">3.</span> <span class="toc-text">基础指令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#MOV%E7%B1%BB%E6%8C%87%E4%BB%A4"><span class="toc-number">3.1.</span> <span class="toc-text">MOV类指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%88%E6%93%8D%E4%BD%9C%E6%8C%87%E4%BB%A4"><span class="toc-number">3.2.</span> <span class="toc-text">栈操作指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%8C%87%E4%BB%A4"><span class="toc-number">3.3.</span> <span class="toc-text">运算指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B0%83%E7%94%A8%E4%B8%8E%E8%BF%94%E5%9B%9E%E6%8C%87%E4%BB%A4"><span class="toc-number">3.4.</span> <span class="toc-text">调用与返回指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E6%80%BB%E7%BB%93"><span class="toc-number">3.5.</span> <span class="toc-text">指令总结</span></a></li></ol></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&text=汇编语言"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&is_video=false&description=汇编语言"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=汇编语言&body=Check out this article: https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&title=汇编语言"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&name=汇编语言&description="><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=https://zhaodi.org/2022/08/23/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/&t=汇编语言"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
+  </div>
+</div>
+
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
+    
+    
+    2019-2022
+    Di Zhao
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a target="_blank" rel="noopener" href="http://github.com/zhaodi1">Projects</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
+
+<!-- utterances Comments -->
+
+</body>
+</html>
